@@ -46,8 +46,8 @@ class FeedbackFormClass extends Component {
   render() {
     const { goBack } = this.props;
     const {
-      formStep, childName, age, learning,
-      audioHelp, rating, feedback, showThankYou
+      formStep, childName, age,
+      rating, feedback, showThankYou
     } = this.state;
 
     return (

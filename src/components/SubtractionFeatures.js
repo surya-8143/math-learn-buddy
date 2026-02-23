@@ -5,7 +5,6 @@ import html2canvas from 'html2canvas';
 const SubtractionFeatures = () => {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('fade'); // fade, backspace, transform, gap
-    const [gallery, setGallery] = useState([]); // Stores captured states
 
     // ==============================
     // 1. FADE AWAY STATE (Click to Fade)
@@ -66,7 +65,7 @@ const SubtractionFeatures = () => {
 
         if (e.key === 'Backspace') {
             e.preventDefault();
-            const currentLen = [...backspaceString].length / 2; // Emoji is 2 chars usually, but spread helps count
+            // Emjois handle length differently, fallback or logical count
             // Actually relying on string length for emojis can be tricky.
             // Let's use an array approach for simpler state logic if needed, but string slice works for simple repetition.
 
@@ -88,7 +87,7 @@ const SubtractionFeatures = () => {
     useEffect(() => {
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [activeTab, backspaceString, backspaceSuccess]);
+    }, [activeTab, backspaceString, backspaceSuccess, handleKeyDown]);
 
 
     // ==============================
