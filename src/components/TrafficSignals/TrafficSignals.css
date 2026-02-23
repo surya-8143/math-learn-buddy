@@ -1,0 +1,464 @@
+/* src/components/TrafficSignals/TrafficSignals.css */
+
+/* --- 1. ANIMATIONS --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes pulseBtn {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 82, 82, 0.7);
+    }
+
+    70% {
+        transform: scale(1.1);
+        box-shadow: 0 0 0 20px rgba(255, 82, 82, 0);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 82, 82, 0);
+    }
+}
+
+/* --- 2. GLOBAL STYLES (SCOPED TO traffic-app) --- */
+.traffic-app {
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(180deg, #e0f2f1 0%, #e8f5e9 100%);
+    background-attachment: fixed;
+    /* FORCE NO SCROLL */
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* --- HEADINGS --- */
+.traffic-app h1 {
+    font-family: 'Perpetua Titling MT', 'Times New Roman', serif;
+    color: #1a3c34;
+    margin-bottom: 15px;
+    font-size: 2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.traffic-app h2 {
+    font-family: 'Perpetua Titling MT', 'Times New Roman', serif;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.traffic-app .main-layout {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1000px;
+    height: 80vh;
+}
+
+/* --- 3. TRAFFIC LIGHT (COMPACT GLOSSY STYLE) --- */
+.traffic-light-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    flex: 0 0 auto;
+}
+
+.traffic-light-container {
+    background-color: #2c3e50;
+    padding: 15px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 90px;
+    align-items: center;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2), inset 2px 2px 5px rgba(255, 255, 255, 0.1);
+    border: 4px solid #1a252f;
+}
+
+.light {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #444;
+    border: 4px solid #222;
+    position: relative;
+    box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.light::after {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: 20%;
+    width: 30%;
+    height: 15%;
+    border-radius: 50%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.1));
+    filter: blur(1px);
+}
+
+.light.red.active {
+    background: radial-gradient(circle at 35% 35%, #ff5252, #b30000);
+    border-color: #550000;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+}
+
+.light.yellow.active {
+    background: radial-gradient(circle at 35% 35%, #ffeb3b, #fbc02d);
+    border-color: #bfa004;
+    box-shadow: 0 0 20px rgba(255, 235, 59, 0.4);
+}
+
+.light.green.active {
+    background: radial-gradient(circle at 35% 35%, #69f0ae, #00c853);
+    border-color: #004d20;
+    box-shadow: 0 0 20px rgba(0, 230, 118, 0.4);
+}
+
+/* --- 4. TEXT & BUTTONS --- */
+.score-board {
+    background: white;
+    padding: 5px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 1rem;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 5px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.instruction-box {
+    padding: 10px 20px;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 12px;
+    min-width: 250px;
+    text-align: center;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.traffic-app .controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.traffic-app button {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background-color: white;
+    color: #555;
+    box-shadow: 0 3px 0 #ccc;
+    transition: transform 0.1s;
+}
+
+.traffic-app button:active {
+    transform: translateY(3px);
+    box-shadow: none;
+}
+
+.btn-stop {
+    background-color: #ff5252;
+    color: white;
+    box-shadow: 0 3px 0 #b30000;
+}
+
+.btn-wait {
+    background-color: #fbc02d;
+    color: white;
+    box-shadow: 0 3px 0 #c49000;
+}
+
+.btn-go {
+    background-color: #00c853;
+    color: white;
+    box-shadow: 0 3px 0 #007029;
+}
+
+.mode-switch {
+    margin-top: 15px;
+    background-color: #34495e;
+    color: white;
+    box-shadow: 0 3px 0 #2c3e50;
+    padding: 10px 20px;
+}
+
+/* --- 5. RIGHT SIDE: ROAD SIGNS --- */
+.road-signs-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: center;
+}
+
+.sign-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    width: 100%;
+    padding: 20px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.road-sign-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 10px;
+    aspect-ratio: 1 / 1;
+    text-align: center;
+    cursor: pointer;
+    background: #fff;
+    border: 2px solid #eee;
+    box-shadow: 0 3px 0 #ddd;
+    transition: transform 0.2s;
+}
+
+.road-sign-tile:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 0 #ddd;
+}
+
+.sign-icon {
+    font-size: 2rem;
+    margin-bottom: 2px;
+}
+
+.sign-label {
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: #555;
+}
+
+/* --- 6. WELCOME & LANDING STYLES --- */
+.welcome-container {
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* THE BUTTON BESIDE HIS HAND */
+.hand-start-btn {
+    position: absolute;
+    bottom: 18%;
+    left: 3%;
+    background-color: #ff5252;
+    color: white;
+    font-size: 1.5rem;
+    padding: 15px 30px;
+    border-radius: 50px;
+    border: 4px solid white;
+    font-family: 'Comic Sans MS', cursive;
+    cursor: pointer;
+    animation: pulseBtn 2s infinite;
+}
+
+/* THE WELCOME BOX */
+.welcome-box {
+    background: rgba(255, 255, 255, 0.75);
+    padding: 40px 60px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+    border: 3px solid white;
+    max-width: 600px;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.welcome-title {
+    font-family: 'Comic Sans MS', 'Bubblegum Sans', cursive, sans-serif;
+    color: #ff5252;
+    font-size: 3rem;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 0px #fff;
+}
+
+.welcome-subtitle {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 1.5rem;
+    color: #111;
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+.lets-go-btn {
+    background: linear-gradient(45deg, #ffeb3b, #ffc107);
+    color: #d32f2f;
+    font-size: 1.8rem;
+    padding: 15px 50px;
+    border-radius: 50px;
+    border: 4px solid white;
+    font-weight: 900;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+.lets-go-btn:hover {
+    transform: scale(1.1);
+    background: linear-gradient(45deg, #fff176, #ffd54f);
+}
+
+/* --- 7. NEW COMPACT QUIZ STYLES (NO SCROLL) --- */
+
+.quiz-page-bg {
+    justify-content: center;
+}
+
+/* Smaller Score for Quiz */
+.big-score {
+    font-size: 1.5rem;
+    padding: 5px 30px;
+    background: #2c3e50;
+    color: #ffeb3b;
+    border: 3px solid #34495e;
+    margin-bottom: 10px;
+    border-radius: 20px;
+}
+
+/* Compact Quiz Card */
+.quiz-card {
+    background: white;
+    padding: 15px;
+    /* Reduced from 30px */
+    border-radius: 25px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    max-width: 450px;
+    /* Reduced width */
+    animation: popIn 0.5s ease-out;
+    border: 2px solid #eee;
+}
+
+.quiz-visual {
+    margin: 5px 0;
+    /* Reduced margin */
+    transform: scale(0.9);
+    /* Shrunken visual */
+}
+
+/* Smaller Quiz Sign */
+.big-sign-display .road-sign-tile {
+    width: 90px;
+    height: 90px;
+    cursor: default;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.quiz-feedback {
+    height: 25px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    /* Reduced gap */
+    width: 100%;
+}
+
+.quiz-option-btn {
+    padding: 10px;
+    /* Reduced padding */
+    font-size: 1rem;
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #333;
+    font-weight: 700;
+    box-shadow: 0 3px 0 #ddd;
+}
+
+.quiz-option-btn:hover {
+    background: #e3f2fd;
+    border-color: #2196f3;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 #badbf7;
+}
+
+.quiz-option-btn:active {
+    transform: translateY(2px);
+    box-shadow: none;
+}
+
+.start-quiz-btn {
+    background-color: #673ab7;
+    font-size: 1rem;
+    padding: 10px 25px;
+    border-radius: 50px;
+    box-shadow: 0 4px 0 #512da8;
+}
+
+.start-quiz-btn:hover {
+    background-color: #7e57c2;
+}
