@@ -7,8 +7,11 @@ const LandingPage = () => {
   const [showPopup, setShowPopup] = useState(false);
 
   return (
-    <div className="landing-container">
-      
+    <div
+      className="landing-container"
+      style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/shinchanfamily.jpg)` }}
+    >
+
       {/* 1. The Start Button (Only visible if popup is closed) */}
       {!showPopup && (
         <button className="omnitrix-btn" onClick={() => setShowPopup(true)}>
