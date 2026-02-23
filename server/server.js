@@ -7,7 +7,10 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: ["http://localhost:3000", "https://YOUR_NETLIFY_SITE.netlify.app"],
+    credentials: true
+}));
 app.use(bodyParser.json());
 
 // --- In-Memory Storage (No Database!) ---

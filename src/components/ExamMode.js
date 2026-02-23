@@ -203,7 +203,8 @@ const ExamMode = ({ settings }) => {
     const handleScoreSubmit = () => {
       if (!playerName) return alert("Enter your name first!");
       try {
-        const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
+        const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+        const apiUrl = `${baseUrl}/api`;
         const scoreObj = { name: playerName, score };
         fetch(`${apiUrl}/score`, {
           method: 'POST',

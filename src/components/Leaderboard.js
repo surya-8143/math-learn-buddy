@@ -8,7 +8,8 @@ const Leaderboard = () => {
 
     const fetchLeaderboard = async () => {
         try {
-            const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
+            const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+            const apiUrl = `${baseUrl}/api`;
             const response = await fetch(`${apiUrl}/leaderboard`);
             const data = await response.json();
             setScores(data);

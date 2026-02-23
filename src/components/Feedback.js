@@ -32,7 +32,8 @@ const Feedback = () => {
     setError(null);
 
     try {
-      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
+      const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+      const apiUrl = `${baseUrl}/api`;
       const response = await fetch(`${apiUrl}/feedback`, {
         method: 'POST',
         headers: {
