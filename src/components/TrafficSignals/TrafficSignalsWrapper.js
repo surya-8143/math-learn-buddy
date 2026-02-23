@@ -22,7 +22,7 @@ function TrafficSignalsWrapper() {
 
 
     const welcomeBg =
-        "https://img10.hotstar.com/image/upload/f_auto,q_auto/sources/r1/cms/prod/1675/1715415371675-i";
+        "/shinchanfamily.jpg";
 
     /* ---------------- ROAD SIGNS ---------------- */
     const roadSignsList = [
