@@ -4,7 +4,7 @@ import './TrafficSignals/TrafficSignals.css'; // Reuse existing styles
 
 function StartScreen() {
     const navigate = useNavigate();
-    const welcomeBg = "https://img10.hotstar.com/image/upload/f_auto,q_auto/sources/r1/cms/prod/1675/1715415371675-i";
+    const welcomeBg = "/shinchanfamily.jpg";
 
     return (
         <div
