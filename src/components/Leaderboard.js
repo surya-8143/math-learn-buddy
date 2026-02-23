@@ -6,11 +6,19 @@ const Leaderboard = () => {
     const navigate = useNavigate();
     const [scores, setScores] = useState([]);
 
+    const fetchLeaderboard = async () => {
+        try {
+            const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
+            const response = await fetch(`${apiUrl}/leaderboard`);
+            const data = await response.json();
+            setScores(data);
+        } catch (error) {
+            console.error('Error fetching leaderboard:', error);
+        }
+    };
+
     useEffect(() => {
-        fetch('http://localhost:5001/api/leaderboard')
-            .then(res => res.json())
-            .then(data => setScores(data))
-            .catch(err => console.error('Error fetching leaderboard:', err));
+        fetchLeaderboard();
     }, []);
 
     return (

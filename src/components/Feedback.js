@@ -32,12 +32,13 @@ const Feedback = () => {
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:5001/api/feedback', {
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
+      const response = await fetch(`${apiUrl}/feedback`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formData), // Retaining formData as it matches the component's state structure
       });
 
       if (!response.ok) {

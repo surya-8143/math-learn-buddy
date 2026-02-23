@@ -202,18 +202,24 @@ const ExamMode = ({ settings }) => {
   if (gameOver) {
     const handleScoreSubmit = () => {
       if (!playerName) return alert("Enter your name first!");
-
-      fetch('http://localhost:5001/api/score', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: playerName, score })
-      })
-        .then(res => res.json())
-        .then(() => {
-          setSubmitted(true);
-          navigate('/leaderboard');
+      try {
+        const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
+        const scoreObj = { name: playerName, score };
+        fetch(`${apiUrl}/score`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(scoreObj),
         })
-        .catch(err => alert("Failed to save score. Is backend running?"));
+          .then(res => res.json())
+          .then(() => {
+            setSubmitted(true);
+            navigate('/leaderboard');
+          })
+          .catch(err => alert("Failed to save score. Is backend running?"));
+      } catch (error) {
+        console.error("Error submitting score:", error);
+        alert("An unexpected error occurred while saving the score.");
+      }
     };
 
     return (
